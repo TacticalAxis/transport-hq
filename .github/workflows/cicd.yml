@@ -8,6 +8,8 @@ jobs:
   build:
     runs-on: [ubuntu-latest]
     steps:
+      - name: Change to project directory
+        run: cd services/transportcore
       - name: Checkout source
         uses: actions/checkout@v3
       - name: Setup Java
