@@ -8,8 +8,6 @@ jobs:
   build:
     runs-on: [ubuntu-latest]
     steps:
-      - name: Change to project directory
-        run: cd ./services/transportcore
       - name: Checkout source
         uses: actions/checkout@v3
       - name: Setup Java
@@ -19,10 +17,12 @@ jobs:
           java-version: '21'
       - name: Build project
         run: ./gradlew build
+        working-directory: ./services/transportcore
       - name: Login to docker
         run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
       - name: Build docker image
-        run: docker build -t tacticalaxis/transportcore .
+        run: docker build -t tacticalaxis/transportcore:latest .
+        working-directory: ./services/transportcore
       - name: Publish to docker hub
         run: docker push tacticalaxis/transportcore:latest
 
