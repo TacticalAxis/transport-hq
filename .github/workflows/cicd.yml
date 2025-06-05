@@ -15,6 +15,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+      - name: Make Gradle executable
+        run: chmod +x gradlew
+        working-directory: ./services/transportcore
       - name: Build project
         run: ./gradlew build
         working-directory: ./services/transportcore
