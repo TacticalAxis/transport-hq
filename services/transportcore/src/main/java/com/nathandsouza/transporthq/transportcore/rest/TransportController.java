@@ -30,7 +30,7 @@ public class TransportController {
     }
 
     @GetMapping("/motd")
-    public ResponseEntity<Motd> getMotd(@RequestParam String message) {
-        return new ResponseEntity<>(new Motd("Setting up TransportHQ - " + message, 777), HttpStatus.OK);
+    public ResponseEntity<Motd> getMotd(@RequestParam String message, @RequestParam String prefix) {
+        return new ResponseEntity<>(new Motd(prefix + "Setting up TransportHQ - " + message, 777), HttpStatus.OK);
     }
 }
