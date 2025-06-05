@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -29,7 +30,7 @@ public class TransportController {
     }
 
     @GetMapping("/motd")
-    public ResponseEntity<Motd> getMotd() {
-        return new ResponseEntity<>(new Motd("Setting up TransportHQ", 777), HttpStatus.OK);
+    public ResponseEntity<Motd> getMotd(@RequestParam String message) {
+        return new ResponseEntity<>(new Motd("Setting up TransportHQ - " + message, 777), HttpStatus.OK);
     }
 }
