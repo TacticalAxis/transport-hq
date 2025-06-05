@@ -15,12 +15,17 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+      - name: Make Gradle executable
+        run: chmod +x gradlew
+        working-directory: ./services/transportcore
       - name: Build project
         run: ./gradlew build
+        working-directory: ./services/transportcore
       - name: Login to docker
         run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
       - name: Build docker image
-        run: docker build -t tacticalaxis/transportcore .
+        run: docker build -t tacticalaxis/transportcore:latest .
+        working-directory: ./services/transportcore
       - name: Publish to docker hub
         run: docker push tacticalaxis/transportcore:latest
 
@@ -28,7 +33,7 @@ jobs:
     needs: build
     runs-on: [aws-ec2]
     steps:
-      - name: Pull image from docker
+      - name: Pull image from docker hub
         run: docker pull tacticalaxis/transportcore:latest
       - name: Delete old container if exists
         run: docker rm -f transportcore-container
